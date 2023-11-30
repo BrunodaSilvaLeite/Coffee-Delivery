@@ -1,5 +1,14 @@
 import { ShoppingCart } from 'phosphor-react'
-import { CoffeImage, Container } from './style'
+import {
+  CoffeImage,
+  Container,
+  Control,
+  Description,
+  Price,
+  Tags,
+  Tiltle,
+} from './style'
+import { CoffeCounter } from '../CoffeeCounter'
 
 interface coffee {
   id: string
@@ -16,20 +25,21 @@ interface props {
 export function CoffeCard({ coffee }: props) {
   return (
     <Container>
-      <div>
-        <CoffeImage src={coffee.image} alt="" />
-        <span>tradicional</span>
-      </div>
-      <div>
-        <h2>{coffee.title}</h2>
-        <span>{coffee.description}</span>
-      </div>
-      <div>
-        <span>{coffee.price}</span>
-        <button>
+      <CoffeImage src={coffee.image} alt="" />
+      <Tags>tradicional</Tags>
+      <Tiltle>{coffee.title}</Tiltle>
+      <Description>{coffee.description}</Description>
+
+      <Control>
+        <Price>
+          <span>R$</span>
+          <span id="price-value">{coffee.price.toFixed(2)}</span>
+        </Price>
+        <CoffeCounter />
+        <button id="button_car">
           <ShoppingCart size={22} weight="fill"></ShoppingCart>
         </button>
-      </div>
+      </Control>
     </Container>
   )
 }

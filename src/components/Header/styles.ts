@@ -42,4 +42,7 @@ export const Aside = styled.div`
       color: ${({ theme }) => theme.colors['yellow-dark']};
     }
   }
+  a:hover {
+    opacity: 0.8;
+  }
 `
