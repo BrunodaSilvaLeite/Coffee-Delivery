@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom'
 export function Header() {
   return (
     <Container>
-      <img src={LogoCoffeDelivery} alt="logo" />
+      <Link to="/">
+        <img src={LogoCoffeDelivery} alt="logo" />
+      </Link>
 
       <Aside>
         <div>

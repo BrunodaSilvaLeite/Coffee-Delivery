@@ -38,12 +38,17 @@ export const mixins = {
     `,
 
     textL: css`
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 1.25rem;
+      line-height: 130%;
+      font-weight: 400;
+    `,
+    textLRoboto: css`
       font-family: 'Roboto', sans-serif;
       font-size: 1.25rem;
       line-height: 130%;
       font-weight: 400;
     `,
-
     textM: css`
       font-family: 'Roboto', sans-serif;
       font-size: 1rem;

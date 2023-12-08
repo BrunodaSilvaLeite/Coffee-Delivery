@@ -66,9 +66,6 @@ export const Price = styled.div`
   }
   span#price-value {
     color: ${({ theme }) => theme.colors['base-text']};
-    font-family: Baloo 2;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 800;
+    ${mixins.fonts.titleM};
   }
 `
