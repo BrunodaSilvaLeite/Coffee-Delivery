@@ -19,10 +19,14 @@ export const CoffeImage = styled.img`
 `
 
 export const Tags = styled.span`
-  border-radius: 100px;
-  padding: 0.25rem 0.5rem;
-  background-color: ${({ theme }) => theme.colors['yellow-light']};
-  color: ${({ theme }) => theme.colors['yellow-dark']};
+  display: flex;
+  gap: 0.25rem;
+  > span {
+    border-radius: 100px;
+    padding: 0.25rem 0.5rem;
+    background-color: ${({ theme }) => theme.colors['yellow-light']};
+    color: ${({ theme }) => theme.colors['yellow-dark']};
+  }
 `
 
 export const Tiltle = styled.h2`
@@ -38,7 +42,7 @@ export const Control = styled.div`
   display: flex;
   gap: 1rem;
 
-  button#button_car {
+  > button {
     display: flex;
     padding: 0.5rem;
     justify-content: center;
@@ -51,7 +55,7 @@ export const Control = styled.div`
       color: ${({ theme }) => theme.colors['base-card']};
     }
   }
-  button#button_car:hover {
+  > button:hover {
     opacity: 0.8;
   }
 `
@@ -64,7 +68,7 @@ export const Price = styled.div`
     ${mixins.fonts.textS};
     color: ${({ theme }) => theme.colors['base-text']};
   }
-  span#price-value {
+  > span:nth-child(2) {
     color: ${({ theme }) => theme.colors['base-text']};
     ${mixins.fonts.titleM};
   }
