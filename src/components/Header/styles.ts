@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import { mixins } from '../../styles/mixins'
 export const Container = styled.header`
   max-width: 1160px;
   margin: auto;
@@ -31,6 +31,7 @@ export const Aside = styled.div`
   }
   a {
     display: flex;
+    position: relative;
     padding: 0.5rem;
     justify-content: center;
     align-items: center;
@@ -40,6 +41,21 @@ export const Aside = styled.div`
 
     svg {
       color: ${({ theme }) => theme.colors['yellow-dark']};
+    }
+
+    span {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background-color: ${({ theme }) => theme.colors['yellow-dark']};
+      bottom: 1.7rem;
+      left: 1.6rem;
+      border-radius: 50%;
+      ${mixins.fonts.textXS}
+      color: white;
     }
   }
   a:hover {
