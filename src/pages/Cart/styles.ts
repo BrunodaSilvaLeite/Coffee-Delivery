@@ -52,48 +52,11 @@ export const AddressForm = styled.div`
   grid-template-areas:
     'cep . .'
     'street street street'
-    'number fullAndress fullAndress'
+    'number fullAddress fullAddress'
     'neighborhood city state';
 
   grid-template-columns: 12.5rem 1fr 3.75rem;
   grid-gap: 1rem 0.75rem;
-
-  input {
-    display: flex;
-    padding: 0.75rem;
-    align-items: center;
-    gap: 0.25rem;
-    border-radius: 0.25rem;
-    border: 1px solid ${({ theme }) => theme.colors['base-button']};
-    background: ${({ theme }) => theme.colors['base-input']};
-  }
-  #cep {
-    grid-area: cep;
-  }
-
-  #street {
-    grid-area: street;
-  }
-
-  #number {
-    grid-area: number;
-  }
-
-  #fullAndress {
-    grid-area: fullAndress;
-  }
-
-  #neighborhood {
-    grid-area: neighborhood;
-  }
-
-  #city {
-    grid-area: city;
-  }
-
-  #state {
-    grid-area: state;
-  }
 `
 export const FormPay = styled.div`
   width: 100%;
@@ -124,21 +87,14 @@ export const FormPayHeader = styled.div`
 `
 export const FormPayContainer = styled.div`
   display: flex;
-  gap: 0.75rem;
-  label {
-    gap: 0.75rem;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  > div {
     display: flex;
-    padding: 1rem;
-    cursor: pointer;
-    background-color: ${({ theme }) => theme.colors['base-button']};
-    ${mixins.fonts.buttonM}
-    border-radius: 6px;
-  }
-  input {
-    display: none;
-  }
-  input:checked + label {
-    background-color: #bbb;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
   }
 `
 

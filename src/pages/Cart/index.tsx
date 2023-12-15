@@ -6,6 +6,8 @@ import {
   Money,
   Trash,
 } from 'phosphor-react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Container,
   AddressHeader,
@@ -24,13 +26,99 @@ import {
   CheckoutButton,
 } from './styles'
 import { CoffeCounter } from '../../components/CoffeeCounter'
+import { useCart } from '../../hooks/useCart'
+import { coffees } from '../../../data.json'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { TextInput } from '../../components/TextInput'
+import { Radio } from '../../components/Radio'
+
+type FormInputs = {
+  cep: number
+  street: string
+  number: string
+  fullAddress: string
+  neighborhood: string
+  city: string
+  state: string
+  paymentMethod: 'credit' | 'debit' | 'cash'
+}
+
+const newOrder = z.object({
+  cep: z.number({ invalid_type_error: 'Informe o CEP' }),
+  street: z.string().min(1, 'Informe a rua'),
+  number: z.string().min(1, 'Informe o número'),
+  fullAddress: z.string(),
+  neighborhood: z.string().min(1, 'Informe o bairro'),
+  city: z.string().min(1, 'Informe a cidade'),
+  state: z.string().min(1, 'Informe a UF'),
+  paymentMethod: z.enum(['credit', 'debit', 'cash'], {
+    invalid_type_error: 'Informe um método de pagamento',
+  }),
+})
+
+export type OrderInfo = z.infer<typeof newOrder>
 
 export function Cart() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormInputs>({
+    resolver: zodResolver(newOrder),
+    defaultValues: {
+      paymentMethod: 'credit', // valor inicial
+    },
+  })
+
+  const { cart, removeItem, decrementItem, IncrementItem, checkout } = useCart()
+
+  const deliveryPrice = 3.5
+
+  const coffeesInCart = cart.map((item) => {
+    const coffeeInfo = coffees.find((coffee) => coffee.id === item.id)
+    if (!coffeeInfo) {
+      throw new Error('Invalid coffee.')
+    }
+
+    return {
+      ...coffeeInfo,
+      quantity: item.quantityCoffe,
+    }
+  })
+
+  const totalItemPrice = coffeesInCart.reduce((previousValue, currentItem) => {
+    return (previousValue += currentItem.price * currentItem.quantity)
+  }, 0)
+
+  const selectedPaymentMethod = watch('paymentMethod')
+
+  function handleItemIncrement(ItemId: string) {
+    IncrementItem(ItemId)
+  }
+
+  function handleItemDecrement(ItemId: string) {
+    decrementItem(ItemId)
+  }
+
+  function handleRemovItem(ItemId: string) {
+    removeItem(ItemId)
+  }
+  const handleOrderCheckout: SubmitHandler<FormInputs> = (data) => {
+    if (cart.length === 0) {
+      return alert('É preciso ter pelo menos um item no carrinho')
+    }
+    if (!data.paymentMethod) {
+      return alert('Insira uma forma de pagamneto')
+    }
+
+    checkout(data)
+  }
   return (
     <Container>
       <InfoContainer>
         <h1>Complete seu pedido</h1>
-        <form action="">
+        <form id="order" onSubmit={handleSubmit(handleOrderCheckout)}>
           <AddressContainer>
             <AddressHeader>
               <MapPin size={22} />
@@ -40,13 +128,57 @@ export function Cart() {
               </div>
             </AddressHeader>
             <AddressForm>
-              <input type="text" id="cep" placeholder="CEP" />
-              <input type="text" id="street" placeholder="Rua" />
-              <input type="text" id="number" placeholder="Número" />
-              <input type="text" id="fullAndress" placeholder="Complemento" />
-              <input type="text" id="neighborhood" placeholder="Bairro" />
-              <input type="text" id="city" placeholder="Cidade" />
-              <input type="text" id="state" placeholder="UF" />
+              <TextInput
+                placeholder="CEP"
+                type="number"
+                containerProps={{ style: { gridArea: 'cep' } }}
+                error={errors.cep}
+                {...register('cep', { valueAsNumber: true })}
+              />
+
+              <TextInput
+                placeholder="Rua"
+                containerProps={{ style: { gridArea: 'street' } }}
+                error={errors.street}
+                {...register('street')}
+              />
+
+              <TextInput
+                placeholder="Número"
+                containerProps={{ style: { gridArea: 'number' } }}
+                error={errors.number}
+                {...register('number')}
+              />
+
+              <TextInput
+                placeholder="Complemento"
+                optional
+                containerProps={{ style: { gridArea: 'fullAddress' } }}
+                error={errors.fullAddress}
+                {...register('fullAddress')}
+              />
+
+              <TextInput
+                placeholder="Bairro"
+                containerProps={{ style: { gridArea: 'neighborhood' } }}
+                error={errors.neighborhood}
+                {...register('neighborhood')}
+              />
+
+              <TextInput
+                placeholder="Cidade"
+                containerProps={{ style: { gridArea: 'city' } }}
+                error={errors.city}
+                {...register('city')}
+              />
+
+              <TextInput
+                placeholder="UF"
+                maxLength={2}
+                containerProps={{ style: { gridArea: 'state' } }}
+                error={errors.state}
+                {...register('state')}
+              />
             </AddressForm>
           </AddressContainer>
           <FormPay>
@@ -61,23 +193,34 @@ export function Cart() {
               </div>
             </FormPayHeader>
             <FormPayContainer>
-              <input type="radio" id="button1" name="button" />
-              <label htmlFor="button1" className="radio-button-label">
-                <CreditCard size={16} />
-                CARTÃO DE CRÉITO
-              </label>
+              <div>
+                <Radio
+                  isSelected={selectedPaymentMethod === 'credit'}
+                  {...register('paymentMethod')}
+                  value="credit"
+                >
+                  <CreditCard size={16} />
+                  <span>Cartão de crédito</span>
+                </Radio>
 
-              <input type="radio" id="button2" name="button" />
-              <label htmlFor="button2" className="radio-button-label">
-                <Bank size={16} />
-                CARTÃO DE DÉBITO
-              </label>
+                <Radio
+                  isSelected={selectedPaymentMethod === 'debit'}
+                  {...register('paymentMethod')}
+                  value="debit"
+                >
+                  <Bank size={16} />
+                  <span>Cartão de débito</span>
+                </Radio>
 
-              <input type="radio" id="button3" name="button" />
-              <label htmlFor="button3" className="radio-button-label">
-                <Money size={16} />
-                DINHEIRO
-              </label>
+                <Radio
+                  isSelected={selectedPaymentMethod === 'cash'}
+                  {...register('paymentMethod')}
+                  value="cash"
+                >
+                  <Money size={16} />
+                  <span>Dinheiro</span>
+                </Radio>
+              </div>
             </FormPayContainer>
           </FormPay>
         </form>
@@ -85,58 +228,70 @@ export function Cart() {
       <InfoContainer>
         <h1>Cafés selecionados</h1>
         <CartTotal>
-          <Fragment>
-            <Coffe>
-              <div>
-                <img src="/images/coffees/expresso.png" alt="" />
-                <ContentActionCoffe>
-                  <span>Expresso Tradicional</span>
-                  <CoffeeInfo>
-                    <CoffeCounter />
-                    <button>
-                      <Trash></Trash>
-                      <span>REMOVER</span>
-                    </button>
-                  </CoffeeInfo>
-                </ContentActionCoffe>
-              </div>
-              <aside>R$ 9,90</aside>
-            </Coffe>
-            <span />
-          </Fragment>
-          <Fragment>
-            <Coffe>
-              <div>
-                <img src="/images/coffees/expresso-cremoso.png" alt="" />
-                <ContentActionCoffe>
-                  <span>Expresso Cremoso</span>
-                  <CoffeeInfo>
-                    <CoffeCounter />
-                    <button>
-                      <Trash></Trash>
-                      <span>REMOVER</span>
-                    </button>
-                  </CoffeeInfo>
-                </ContentActionCoffe>
-              </div>
-              <aside>R$ 9,90</aside>
-            </Coffe>
-            <span />
-          </Fragment>
+          <div>
+            {coffeesInCart.map((coffe) => (
+              <Fragment key={coffe.id}>
+                <Coffe>
+                  <div>
+                    <img src={coffe.image} alt="" />
+                    <ContentActionCoffe>
+                      <span>Expresso Cremoso</span>
+                      <CoffeeInfo>
+                        <CoffeCounter
+                          quantity={coffe.quantity}
+                          incrementQuantity={() =>
+                            handleItemIncrement(coffe.id)
+                          }
+                          decrementQuantity={() =>
+                            handleItemDecrement(coffe.id)
+                          }
+                        />
+                        <button onClick={() => handleRemovItem(coffe.id)}>
+                          <Trash></Trash>
+                          <span>REMOVER</span>
+                        </button>
+                      </CoffeeInfo>
+                    </ContentActionCoffe>
+                  </div>
+                  <aside>R$ 9,90</aside>
+                </Coffe>
+                <span />
+              </Fragment>
+            ))}
+          </div>
           <CartTotalInfo>
             <div>
               <span>Total de itens</span>
-              <span>10</span>
+              <span>
+                {' '}
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency',
+                }).format(totalItemPrice)}
+              </span>
             </div>
 
             <div>
               <span>Entrega</span>
-              <span>10</span>
+              <span>
+                {' '}
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency',
+                }).format(deliveryPrice)}
+              </span>
             </div>
 
             <div>
               <span>Total</span>
-              <span>10</span>
+
+              <span>
+                {' '}
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency',
+                }).format(deliveryPrice + totalItemPrice)}
+              </span>
             </div>
           </CartTotalInfo>
           <CheckoutButton type="submit" form="order">
