@@ -28,7 +28,7 @@ This project was developed with:
 Here's the Figma of the project [Figma](https://www.figma.com/file/5yT9ZzZmRQRS4yivGGB3pl/Coffee-Delivery-%E2%80%A2-Desafio-React/duplicate?type=design&node-id=2-12&mode=design)
 
 
-## ⏱️ Project
+## ☕ Project
 
 The 'Coffe-Deliver' ☕ project is an integral part of the [Ignite](https://app.rocketseat.com.br/ignite/react-js-2022) course, offered by Rocketseat. This project provided us with the opportunity to learn and apply a variety of concepts and technologies related to React ⚛️. Some of the topics covered include the use of styled-components, react-hook-form, zod, react-router-dom, and contextapi. We also explore the use of hooks and the importance of immutability, for which we use the immer library.
 
