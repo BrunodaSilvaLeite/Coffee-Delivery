@@ -25,7 +25,7 @@ This project was developed with:
 
 
 ## 🖌️ Figma 
-Here's the Figma of the project [Figma]([https://www.figma.com/community/file/1127351821076435124/ignite-timer](https://www.figma.com/file/5yT9ZzZmRQRS4yivGGB3pl/Coffee-Delivery-%E2%80%A2-Desafio-React/duplicate?type=design&mode=design))
+Here's the Figma of the project [Figma](https://www.figma.com/file/5yT9ZzZmRQRS4yivGGB3pl/Coffee-Delivery-%E2%80%A2-Desafio-React/duplicate?type=design&node-id=2-12&mode=design)
 
 
 ## ⏱️ Project
