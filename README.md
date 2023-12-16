@@ -1,7 +1,7 @@
 
 
 <p align = "center" >
-  <h1 align="center"> Coffe-Deliver ☕</h1>
+  <h1 align="center"> Coffee-Delivery☕</h1>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@ Here's the Figma of the project [Figma](https://www.figma.com/file/5yT9ZzZmRQRS4
 
 ## ☕ Project
 
-The 'Coffe-Deliver' ☕ project is an integral part of the [Ignite](https://app.rocketseat.com.br/ignite/react-js-2022) course, offered by Rocketseat. This project provided us with the opportunity to learn and apply a variety of concepts and technologies related to React ⚛️. Some of the topics covered include the use of styled-components, react-hook-form, zod, react-router-dom, and contextapi. We also explore the use of hooks and the importance of immutability, for which we use the immer library.
+The 'Coffee-Delivery' ☕ project is an integral part of the [Ignite](https://app.rocketseat.com.br/ignite/react-js-2022) course, offered by Rocketseat. This project provided us with the opportunity to learn and apply a variety of concepts and technologies related to React ⚛️. Some of the topics covered include the use of styled-components, react-hook-form, zod, react-router-dom, and contextapi. We also explore the use of hooks and the importance of immutability, for which we use the immer library.
 
 This project aims to promote coffee delivery. With it, you can add coffee to your cart and make a fictitious payment, which will direct you to a successful page. 
 
