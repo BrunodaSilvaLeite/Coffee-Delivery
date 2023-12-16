@@ -6,10 +6,12 @@
 
 <p align="center">
   <a href="#-Technologies">Technologies🚀</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+     <a href="#-Figma">Figma🖌️</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Project">Project🧑‍💻</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#-How-to-Run">How to Run 🏃</a>&nbsp;&nbsp;&nbsp;
-     <a href="#-Figma">Figma🖌️</a>&nbsp;&nbsp;&nbsp;
+  
 </p>
+</br>
 
 ![coffe-DeliveryImg](https://github.com/BrunodaSilvaLeite/Coffe-Deliver/assets/72769991/0300f958-2124-42d6-88f8-fa2c651ca662)
 
