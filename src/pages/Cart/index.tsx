@@ -117,7 +117,7 @@ export function Cart() {
     return (
       <NoCoffeContainer>
         <div>
-          <h1>Seu carrinho do Coffe Delivery está vazio</h1>
+          <h1>Seu carrinho do Coffee Delivery está vazio</h1>
           <span>
             Veja as ofertas do dia <Link to="/">aqui!</Link>
           </span>
