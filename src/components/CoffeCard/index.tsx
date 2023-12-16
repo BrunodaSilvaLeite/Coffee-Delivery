@@ -8,7 +8,7 @@ import {
   Tags,
   Tiltle,
 } from './style'
-import { CoffeCounter } from '../CoffeeCounter'
+import { CoffeCounter } from '../form/CoffeeCounter'
 import { useEffect, useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useCart } from '../../hooks/useCart'

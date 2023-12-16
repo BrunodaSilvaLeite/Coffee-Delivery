@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { mixins } from '../../styles/mixins'
+import { mixins } from '../../../styles/mixins'
 
 export const Box = styled.div`
   display: flex;

@@ -29,7 +29,7 @@ export const Aside = styled.div`
     }
     font-size: 0.9rem;
   }
-  a {
+  a:nth-of-type(2) {
     display: flex;
     position: relative;
     padding: 0.5rem;
@@ -58,6 +58,10 @@ export const Aside = styled.div`
       color: white;
     }
   }
+  a:nth-of-type(1) {
+    text-decoration: none;
+  }
+
   a:hover {
     opacity: 0.8;
   }

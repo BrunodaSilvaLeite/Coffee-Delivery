@@ -24,13 +24,16 @@ import {
   ContentActionCoffe,
   CartTotalInfo,
   CheckoutButton,
+  NoCoffeContainer,
 } from './styles'
-import { CoffeCounter } from '../../components/CoffeeCounter'
+import { CoffeCounter } from '../../components/form/CoffeeCounter'
 import { useCart } from '../../hooks/useCart'
 import { coffees } from '../../../data.json'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { TextInput } from '../../components/TextInput'
-import { Radio } from '../../components/Radio'
+import { TextInput } from '../../components/form/TextInput'
+import { Radio } from '../../components/form/Radio'
+import undrawNoData from '../../assets/undrawNoData.svg'
+import { Link } from 'react-router-dom'
 
 type FormInputs = {
   cep: number
@@ -59,20 +62,7 @@ const newOrder = z.object({
 export type OrderInfo = z.infer<typeof newOrder>
 
 export function Cart() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormInputs>({
-    resolver: zodResolver(newOrder),
-    defaultValues: {
-      paymentMethod: 'credit', // valor inicial
-    },
-  })
-
   const { cart, removeItem, decrementItem, IncrementItem, checkout } = useCart()
-
   const deliveryPrice = 3.5
 
   const coffeesInCart = cart.map((item) => {
@@ -85,6 +75,17 @@ export function Cart() {
       ...coffeeInfo,
       quantity: item.quantityCoffe,
     }
+  })
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormInputs>({
+    resolver: zodResolver(newOrder),
+    defaultValues: {
+      paymentMethod: 'credit', // valor inicial
+    },
   })
 
   const totalItemPrice = coffeesInCart.reduce((previousValue, currentItem) => {
@@ -108,11 +109,27 @@ export function Cart() {
     if (cart.length === 0) {
       return alert('É preciso ter pelo menos um item no carrinho')
     }
-    if (!data.paymentMethod) {
-      return alert('Insira uma forma de pagamneto')
-    }
 
     checkout(data)
+  }
+
+  if (cart.length === 0) {
+    return (
+      <NoCoffeContainer>
+        <div>
+          <h1>Seu carrinho do Coffe Delivery está vazio</h1>
+          <span>
+            Veja as ofertas do dia <Link to="/">aqui!</Link>
+          </span>
+
+          <img
+            id="noOrderImg"
+            src={undrawNoData}
+            alt="Nenhum Pedido Encontrado"
+          />
+        </div>
+      </NoCoffeContainer>
+    )
   }
   return (
     <Container>
@@ -235,7 +252,7 @@ export function Cart() {
                   <div>
                     <img src={coffe.image} alt="" />
                     <ContentActionCoffe>
-                      <span>Expresso Cremoso</span>
+                      <span>{coffe.title}</span>
                       <CoffeeInfo>
                         <CoffeCounter
                           quantity={coffe.quantity}
@@ -253,7 +270,7 @@ export function Cart() {
                       </CoffeeInfo>
                     </ContentActionCoffe>
                   </div>
-                  <aside>R$ 9,90</aside>
+                  <aside>{coffe.price.toFixed(2)}</aside>
                 </Coffe>
                 <span />
               </Fragment>

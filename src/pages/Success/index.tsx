@@ -1,9 +1,42 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { useTheme } from 'styled-components'
-import { Container, HeaderInfo, Info } from './style'
+import { Container, ContainerNoCoffee, HeaderInfo, Info } from './style'
+import { useCart } from '../../hooks/useCart'
+import { useParams } from 'react-router-dom'
+import Illustration from '../../assets/Illustration.png'
+import undrawNoData from '../../assets/undrawNoData.svg'
 
 export function Success() {
   const theme = useTheme()
+  const { orders } = useCart()
+  const { orderId } = useParams()
+
+  const orderInfo = orders.find((order) => order.id === Number(orderId))
+  const paymentMethod = {
+    credit: 'Cartão de crédito',
+    debit: 'Cartão de débito',
+    cash: 'Dinheiro',
+  }
+
+  if (!orderInfo?.id) {
+    return (
+      <ContainerNoCoffee>
+        <div>
+          <HeaderInfo>
+            <h1>Ops..! Seu pedido não foi encontrado</h1>
+            <span>Tente enviar seu pedido novamente!</span>
+          </HeaderInfo>
+
+          <img
+            id="noOrderImg"
+            src={undrawNoData}
+            alt="Nenhum Pedido Encontrado"
+          />
+        </div>
+      </ContainerNoCoffee>
+    )
+  }
+
   return (
     <Container>
       <div>
@@ -20,8 +53,10 @@ export function Success() {
               weight="fill"
             />
             <span>
-              Entrega em Rua João Daniel Martinelli, 102 <br />
-              <strong>Farrapos - Porto Alegre, RS</strong>
+              Entrega na Rua {orderInfo.street}, {orderInfo.number} <br />
+              <strong>
+                {orderInfo.city} - {orderInfo.neighborhood}, {orderInfo.state}
+              </strong>
             </span>
           </div>
           <div>
@@ -45,12 +80,12 @@ export function Success() {
             />
             <span>
               Pagamento na entrega
-              <br /> <strong>Cartão de Crédito</strong>
+              <br /> <strong>{paymentMethod[orderInfo.paymentMethod]}</strong>
             </span>
           </div>
         </Info>
       </div>
-      <img src="src/assets/illustration.png" alt="Pedido concluído" />
+      <img src={Illustration} alt="Pedido concluído" />
     </Container>
   )
 }

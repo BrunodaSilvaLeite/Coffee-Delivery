@@ -14,9 +14,9 @@ interface CartContextProviderProps {
 }
 
 export interface CartContextProps {
-  addItem: (item: Item) => void
   cart: Item[]
   orders: Order[]
+  addItem: (item: Item) => void
   removeItem: (itemId: Item['id']) => void
   decrementItem: (itemId: Item['id']) => void
   IncrementItem: (itemId: Item['id']) => void
@@ -44,7 +44,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     },
   )
   const navigate = useNavigate()
-  const { cart } = cartState
+  const { cart, orders } = cartState
 
   function addItem(item: Item) {
     dispatch(addItemAction(item))

@@ -19,11 +19,9 @@ export const Container = styled.div`
 export const HeaderInfo = styled.div`
   > h1 {
     ${mixins.fonts.titleL}
-    color: ${({ theme }) => theme.colors['yellow-dark']}
   }
   > span {
     ${mixins.fonts.textLRoboto}
-    color: ${({ theme }) => theme.colors['base-subtitle']};
   }
 `
 export const Info = styled.div`
@@ -45,5 +43,27 @@ export const Info = styled.div`
   svg {
     padding: 0.5rem;
     border-radius: 100%;
+  }
+`
+export const ContainerNoCoffee = styled.div`
+  display: flex;
+  justify-content: center;
+  max-width: 1160px;
+  padding: 5.75rem 1.25rem;
+  margin: 0 auto;
+  align-items: flex-end;
+
+  border-radius: 6px 36px;
+  border: 1px solid ${({ theme }) => theme.colors['yellow-dark']};
+
+  > div {
+    margin: 0 auto;
+    width: 580px;
+    text-align: center;
+  }
+  img {
+    width: 492px;
+    height: 293px;
+    margin-top: 3rem;
   }
 `

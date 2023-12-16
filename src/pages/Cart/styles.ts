@@ -211,3 +211,36 @@ export const CheckoutButton = styled.button`
 
   border-radius: 6px;
 `
+export const NoCoffeContainer = styled.div`
+  display: flex;
+  max-width: 1160px;
+  padding: 5.75rem 1.25rem;
+  margin: 0 auto;
+
+  border-radius: 6px 36px;
+  border: 1px solid ${({ theme }) => theme.colors['yellow-dark']};
+
+  > div {
+    margin: 0 auto;
+    width: 600px;
+    text-align: center;
+    > h1 {
+      ${mixins.fonts.titleL}
+      margin-bottom: 0.5rem;
+    }
+    > span {
+      ${mixins.fonts.textLRoboto}
+    }
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      opacity: 0.8;
+    }
+  }
+  img {
+    width: 492px;
+    height: 293px;
+    margin-top: 3rem;
+  }
+`
