@@ -11,7 +11,17 @@ export const Container = styled.header`
 export const Aside = styled.div`
   display: flex;
   gap: 0.75rem;
-
+  @media (max-width: 860px) {
+    div {
+      span {
+        display: none;
+      }
+      p#UF::before {
+        content: 'SP ';
+        color: ${({ theme }) => theme.colors['purple-dark']};
+      }
+    }
+  }
   div {
     display: flex;
     padding: 0.56rem 0.5rem;

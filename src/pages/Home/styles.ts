@@ -16,6 +16,17 @@ export const Hero = styled.section`
     width: 29.75rem;
     height: 22.5rem;
   }
+  @media (max-width: 1109px) {
+    img#coffe-img {
+      width: 24.75rem;
+      height: 19.5rem;
+    }
+  }
+  @media (max-width: 860px) {
+    img#coffe-img {
+      display: none;
+    }
+  }
 `
 
 export const HeroContent = styled.div`
@@ -33,6 +44,12 @@ export const HeroContent = styled.div`
     flex-direction: column;
     gap: 4.1rem;
   }
+
+  @media (max-width: 860px) {
+    > div {
+      align-items: center;
+    }
+  }
 `
 
 export const Heading = styled.div`
@@ -48,6 +65,10 @@ export const Heading = styled.div`
   > span {
     ${mixins.fonts.textL}
     color: ${({ theme }) => theme.colors['base-subtitle']}
+  }
+  @media (max-width: 860px) {
+    align-items: center;
+    text-align: center;
   }
 `
 
@@ -65,6 +86,10 @@ export const Info = styled.div`
       padding: 0.5rem;
       border-radius: 999px;
     }
+  }
+  @media (max-width: 570px) {
+    display: flex;
+    flex-direction: column;
   }
 `
 export const ContainerCoffe = styled.div`
@@ -86,5 +111,32 @@ export const ContainerCoffe = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-row-gap: 40px;
     grid-column-gap: 32px;
+  }
+  @media (max-width: 1153px) {
+    > div {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-row-gap: 40px;
+      grid-column-gap: 32px;
+      margin: auto;
+    }
+  }
+  @media (max-width: 860px) {
+    > div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-row-gap: 40px;
+      grid-column-gap: 32px;
+      margin: auto;
+    }
+  }
+  @media (max-width: 570px) {
+    > div {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-row-gap: 40px;
+      grid-column-gap: 32px;
+      margin: auto;
+    }
   }
 `

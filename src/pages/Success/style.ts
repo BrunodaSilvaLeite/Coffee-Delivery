@@ -15,6 +15,24 @@ export const Container = styled.div`
   img {
     margin-bottom: -13px;
   }
+  @media (max-width: 860px) {
+    align-items: center;
+    flex-direction: column;
+
+    text-align: center;
+    > div {
+      width: 100%;
+    }
+    img {
+      margin-top: 50px;
+      width: 400px;
+    }
+  }
+  @media (max-width: 450px) {
+    img {
+      width: 300px;
+    }
+  }
 `
 export const HeaderInfo = styled.div`
   > h1 {
@@ -43,6 +61,11 @@ export const Info = styled.div`
   svg {
     padding: 0.5rem;
     border-radius: 100%;
+  }
+  @media (max-width: 860px) {
+    div {
+      margin: auto;
+    }
   }
 `
 export const ContainerNoCoffee = styled.div`

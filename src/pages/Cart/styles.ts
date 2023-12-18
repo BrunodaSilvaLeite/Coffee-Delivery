@@ -10,21 +10,34 @@ export const Container = styled.div`
   gap: 3.5rem;
   align-items: flex-start;
   justify-content: space-between;
+  @media (max-width: 1140px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 6px;
+
   gap: 0.75rem;
   h1 {
     ${mixins.fonts.textL}
     font-weight: 700;
   }
+  @media (max-width: 470px) {
+    h1 {
+      text-align: center;
+    }
+  }
 `
 export const AddressHeader = styled.div`
   display: flex;
   gap: 0.5rem;
+
   span {
     ${mixins.fonts.textM}
     color: ${({ theme }) => theme.colors['base-subtitle']};
@@ -46,6 +59,10 @@ export const AddressContainer = styled.div`
   gap: 2rem;
   padding: 2.5rem;
   background-color: ${({ theme }) => theme.colors['base-card']};
+
+  @media (max-width: 650px) {
+    min-width: 0px;
+  }
 `
 export const AddressForm = styled.div`
   display: grid;
@@ -57,10 +74,19 @@ export const AddressForm = styled.div`
 
   grid-template-columns: 12.5rem 1fr 3.75rem;
   grid-gap: 1rem 0.75rem;
+  @media (max-width: 470px) {
+    grid-template-areas:
+      'cep . .'
+      'street street street'
+      'number number number'
+      'fullAddress fullAddress fullAddress'
+      'city city city '
+      'neighborhood neighborhood state';
+  }
 `
 export const FormPay = styled.div`
   width: 100%;
-  min-width: 640px;
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -96,6 +122,12 @@ export const FormPayContainer = styled.div`
     justify-content: space-between;
     gap: 0.75rem;
   }
+  @media (max-width: 500px) {
+    > div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 `
 
 export const CartTotal = styled.div`
@@ -104,6 +136,16 @@ export const CartTotal = styled.div`
   background-color: ${({ theme }) => theme.colors['base-card']};
   width: 100%;
   min-width: 448px;
+
+  @media (max-width: 1140px) {
+    min-width: 640px;
+  }
+  @media (max-width: 650px) {
+    min-width: 450px;
+  }
+  @media (max-width: 470px) {
+    min-width: 0px;
+  }
 `
 export const Fragment = styled.div`
   > span {
@@ -242,5 +284,26 @@ export const NoCoffeContainer = styled.div`
     width: 492px;
     height: 293px;
     margin-top: 3rem;
+  }
+  @media (max-width: 860px) {
+    border: none;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    img {
+      width: 350px;
+      height: 293px;
+      margin-top: 3rem;
+    }
+  }
+  @media (max-width: 460px) {
+    img {
+      width: 250px;
+      height: 293px;
+      margin-top: 3rem;
+    }
   }
 `

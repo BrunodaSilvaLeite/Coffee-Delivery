@@ -17,12 +17,14 @@ export function Header() {
         <div>
           <MapPin size={22} weight="fill" />
           <span>São Paulo, SP</span>
+          <p id="UF"></p>
         </div>
         <a
           href="https://github.com/BrunodaSilvaLeite/Coffe-Deliver"
           id="linkGithub"
           target="_blank"
           rel="noreferrer"
+          title="Repositório no github"
         >
           <div>
             <GithubLogo size={22} weight="fill" />
